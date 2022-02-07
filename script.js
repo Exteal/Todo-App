@@ -43,14 +43,6 @@ const removeTodo = function(todo) {
     todo.remove();
 }
 
-const changeTodo = function(todo) {
-
-}
-
-
-
-
-
 fromInput.addEventListener("submit", function(e) {
     e.preventDefault;
     const {value} = textInput;
