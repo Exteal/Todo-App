@@ -1,5 +1,5 @@
 const textInput = document.querySelector(".todo-add");
-const todosList = document.querySelector(".todos");
+const todosList = document.querySelector(".todos-list");
 const fromInput = document.querySelector("form");
 
 const createTodo = function (todoTxt) {
@@ -10,24 +10,46 @@ const createTodo = function (todoTxt) {
     todoDelete.classList.add("todo-delete");
     todoDelete.innerText="x";
 
-    const input = document.createElement("input");
-    input.setAttribute("type", "checkbox");
+    const todoInput = document.createElement("input");
+    todoInput.classList.add("input-ck");
+    todoInput.setAttribute("type", "checkbox");
 
     const todoText = document.createElement("div");
     todoText.classList.add("todo-text");
     todoText.innerText = todoTxt;
     
     todo.appendChild(todoDelete);
-    todo.appendChild(input);
+    todo.appendChild(todoInput);
     todo.appendChild(todoText);
+
+
+    todoInput.addEventListener("change",function(event) {
+        todo.classList.toggle("done");
+    })
+    
+    todoDelete.addEventListener("click",function(event) {
+        removeTodo(todo);
+    })
 
     return todo;
 }
 
 
 const addTodo = function(todo) {
-    todosList.appendChild(todo);
+    todosList.prepend(todo);
 }
+
+const removeTodo = function(todo) {
+    todo.remove();
+}
+
+const changeTodo = function(todo) {
+
+}
+
+
+
+
 
 fromInput.addEventListener("submit", function(e) {
     e.preventDefault;
