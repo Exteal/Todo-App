@@ -21,8 +21,12 @@ const createTodo = function (todoJSON) {
     todoText.classList.add("todo-text");
     todoText.innerText = text;
     
-    if(checked) todo.classList.add("done");
-    todo.id = id;
+    if(checked) {
+        todo.classList.add("done");
+        todoInput.checked = true;
+    }
+    todo.setAttribute("todo-id",id);
+
 
     todo.appendChild(todoDelete);
     todo.appendChild(todoInput);
@@ -30,7 +34,7 @@ const createTodo = function (todoJSON) {
 
 
     todoInput.addEventListener("change",function(event) {
-        const query = `http://localhost:8080/todo/${todo.id}`;
+        const query = `http://localhost:8080/todo/${todo.getAttribute("todo-id")}`;
         fetch(query, {method:"PATCH",headers: {"Content-Type" : "application/json"}})
         .then(function(res) {
             todo.classList.toggle("done");
@@ -38,7 +42,7 @@ const createTodo = function (todoJSON) {
     })
     
     todoDelete.addEventListener("click",function(event) {
-        const query = `http://localhost:8080/todo/${todo.id}`;
+        const query = `http://localhost:8080/todo/${todo.getAttribute("todo-id")}`;
         fetch(query, {method:"DELETE",headers: {"Content-Type" : "application/json"}})
         .then(function(res) {
             removeTodo(todo);
@@ -55,6 +59,20 @@ const renderTodo = function(todo) {
 
 const removeTodo = function(todo) {
     todo.remove();
+}
+
+const retrieveTodos = function() {
+    const query = `http://localhost:8080/todos`;
+
+    fetch(query,{method:"GET"})
+    .then(function(res) {
+        return res.json();
+    }) 
+    .then(function(todos) {
+        todos.forEach(function(todo) {
+            if(todo) renderTodo(createTodo(todo));
+        })
+    })
 }
 
 fromInput.addEventListener("submit", function(e) {
@@ -79,6 +97,9 @@ fromInput.addEventListener("submit", function(e) {
     }); 
 
 })
+
+window.onload = retrieveTodos();
+
 
 
     
