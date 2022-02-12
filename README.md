@@ -5,7 +5,7 @@ Une Todo-App  en HTML/CSS/JS (pour l'instant)
 
 Das sa première version (v1), ne contient que du front-end;
 
-Dans la version actuelle (v2), un ajout de back-end  été fait avec un serveur sous express (NodeJS).
+Dans la version actuelle (v2 - non terminée), un ajout de back-end  été fait avec un serveur sous express (NodeJS).
 
 Il utilise pour le moment un simple fichier .json comme base de données.
 
