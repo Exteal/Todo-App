@@ -1,14 +1,21 @@
 const express = require("express");
-const todosRouter = require("./routes/todos");
-const todoRouter = require("./routes/todo");
 const bodyParser = require("body-parser");
+
+const todosRouter = require("./routes/todos.js");
+const todoRouter = require("./routes/todo.js");
+const dbMiddleware = require("./middlewares/dbMiddleware.js");
+const cors = require("./middlewares/cors.js");
+
 const app = express();
 const port = 8080;
 
 app.use(express.static("public"));
 app.use(bodyParser.json());
-app.use(todosRouter);
+app.use(dbMiddleware);
+app.use(cors);
 
+
+app.use(todosRouter);
 app.use(todoRouter);
 
 app.listen(port, () => {

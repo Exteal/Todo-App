@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 router.get('/todos',(req,res)=>{
-    res.sendFile(__dirname+"/../db/db.json");
+    res.json(req.db);
 });
 
  
